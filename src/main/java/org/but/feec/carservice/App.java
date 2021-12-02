@@ -21,16 +21,16 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            loader = new FXMLLoader(getClass().getResource("App.fxml"));
+            loader = new FXMLLoader(getClass().getResource("Login.fxml"));
             mainStage = loader.load();
 
             primaryStage.setTitle("BDS JavaFX Demo");
             Scene scene = new Scene(mainStage);
             setUserAgentStylesheet(STYLESHEET_MODENA);
-            String myStyle = getClass().getResource("css/myStyle.css").toExternalForm();
-            scene.getStylesheets().add(myStyle);
+//            String myStyle = getClass().getResource("css/myStyle.css").toExternalForm();
+//            scene.getStylesheets().add(myStyle);
 
-            primaryStage.getIcons().add(new Image(App.class.getResourceAsStream("logos/vut.jpg")));
+//            primaryStage.getIcons().add(new Image(App.class.getResourceAsStream("logos/vut.jpg")));
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (Exception ex) {
