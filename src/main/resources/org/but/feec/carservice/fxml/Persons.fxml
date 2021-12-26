@@ -6,5 +6,5 @@
 
 <VBox>
     <Label text="Hello world!"/>
-    <Label text="This means success."/>
+    <Label text="This means success"/>
 </VBox>
