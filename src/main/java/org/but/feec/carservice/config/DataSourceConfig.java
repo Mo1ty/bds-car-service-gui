@@ -54,6 +54,8 @@ public class DataSourceConfig {
     }
 
     public static Connection getConnection() throws SQLException {
+        logger.info("Attempt to get logs!");
         return ds.getConnection();
+
     }
 }
