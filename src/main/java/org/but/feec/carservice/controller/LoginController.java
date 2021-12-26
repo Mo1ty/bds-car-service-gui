@@ -88,21 +88,6 @@ public class LoginController {
         handleSignIn();
     }
 
-    private void handleSignIn() {
-        String username = usernameTextfield.getText();
-        String password = passwordTextField.getText();
-
-//        try {                                                                    uncomment when implemented
-//            boolean authenticated = authService.authenticate(username, password);
-//            if (authenticated) {
-//                showPersonsView();
-//            } else {
-//                showInvalidPaswordDialog();
-//            }
-//        } catch (ResourceNotFoundException | DataAccessException e) {
-//            showInvalidPaswordDialog();
-//        }
-    }
 
     private void showPersonsView() {
         try {
@@ -116,7 +101,7 @@ public class LoginController {
             Stage stageOld = (Stage) signInButton.getScene().getWindow();
             stageOld.close();
 
-            stage.getIcons().add(new Image(App.class.getResourceAsStream("logos/vut.jpg")));
+//            stage.getIcons().add(new Image(App.class.getResourceAsStream("logos/vut.jpg")));
             authConfirmDialog();
 
             stage.show();
@@ -127,7 +112,8 @@ public class LoginController {
 
     private void showInvalidPaswordDialog() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Unauthenticated");
+        logger.info("Auth failed!");
+        alert.setTitle("Authentication Failed");
         alert.setHeaderText("The user is not authenticated");
         alert.setContentText("Please provide a valid username and password");//ww  w . j  a  va2s  .  co  m
 
@@ -163,5 +149,21 @@ public class LoginController {
     public void handleOnEnterActionPassword(ActionEvent dragEvent) {
         handleSignIn();
     }
-}
 
+    private void handleSignIn() {
+        String username = usernameTextfield.getText();
+        String password = passwordTextField.getText();
+
+        try {
+            boolean authenticated = authService.authenticate(username, password);
+            if (authenticated) {
+                showPersonsView();
+            } else {
+                showInvalidPaswordDialog();
+            }
+        } catch (Exception e) {
+            showInvalidPaswordDialog();
+//          ResourceNotFoundException | DataAccessException
+        }
+    }
+}

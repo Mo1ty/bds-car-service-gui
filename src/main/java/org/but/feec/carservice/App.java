@@ -24,7 +24,7 @@ public class App extends Application {
             loader = new FXMLLoader(getClass().getResource("Login.fxml"));
             mainStage = loader.load();
 
-            primaryStage.setTitle("BDS JavaFX Demo");
+            primaryStage.setTitle("Car Service App");
             Scene scene = new Scene(mainStage);
             setUserAgentStylesheet(STYLESHEET_MODENA);
 //            String myStyle = getClass().getResource("css/myStyle.css").toExternalForm();
