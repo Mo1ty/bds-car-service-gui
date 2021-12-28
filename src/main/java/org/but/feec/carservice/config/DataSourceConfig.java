@@ -22,6 +22,9 @@ public class DataSourceConfig {
 
     private static final String APPLICATION_PROPERTIES = "application.properties";
 
+    private DataSourceConfig() {
+    }
+
     public static void initializeDataSource(){
         try (InputStream resourceStream = DataSourceConfig.class.getClassLoader().getResourceAsStream(APPLICATION_PROPERTIES)) {
             Properties properties = new Properties();
@@ -44,9 +47,6 @@ public class DataSourceConfig {
             logger.error(e.getClass() + "  --  " + e.getCause() + "  --  " + e.getMessage());
             logger.error("Could not connect to the database.", e);
         }
-    }
-
-    private DataSourceConfig() {
     }
 
     public static DataSource getDataSource() {

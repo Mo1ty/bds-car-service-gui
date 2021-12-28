@@ -92,10 +92,10 @@ public class LoginController {
     private void showPersonsView() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(App.class.getResource("fxml/Persons.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 1050, 600);
+            fxmlLoader.setLocation(App.class.getResource("fxml/MainMenu.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 640, 400);
             Stage stage = new Stage();
-            stage.setTitle("SUCCESS");
+            stage.setTitle("Car Service");
             stage.setScene(scene);
 
             Stage stageOld = (Stage) signInButton.getScene().getWindow();
@@ -126,7 +126,7 @@ public class LoginController {
         alert.setTitle("Logging confirmation");
         alert.setHeaderText("You were successfully logged in.");
 
-        Timeline idlestage = new Timeline(new KeyFrame(Duration.seconds(3), new EventHandler<ActionEvent>() {
+        Timeline idleStage = new Timeline(new KeyFrame(Duration.seconds(3), new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
@@ -134,8 +134,8 @@ public class LoginController {
                 alert.hide();
             }
         }));
-        idlestage.setCycleCount(1);
-        idlestage.play();
+        idleStage.setCycleCount(1);
+        idleStage.play();
 
         Optional<ButtonType> result = alert.showAndWait();
 
