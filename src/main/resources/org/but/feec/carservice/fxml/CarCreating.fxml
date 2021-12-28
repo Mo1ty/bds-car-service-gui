@@ -44,7 +44,7 @@
 <?import javafx.scene.text.Text?>
 
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="403.0" prefWidth="251.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.but.feec.carservice.controller.CarCreationController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="403.0" prefWidth="251.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.but.feec.carservice.controller.CarCreatingController">
    <children>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Type required data" wrappingWidth="251.13671875">
          <font>
@@ -73,11 +73,11 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <TextField prefHeight="13.0" prefWidth="251.0" text="type brand" />
-                  <TextField prefHeight="25.0" prefWidth="217.0" text="type parking id" GridPane.rowIndex="2" />
-                  <TextField prefHeight="25.0" prefWidth="217.0" text="type model (required)" GridPane.rowIndex="4" />
-                  <TextField prefHeight="25.0" prefWidth="217.0" text="type car number (required)" GridPane.rowIndex="6" />
-                  <TextField prefHeight="25.0" prefWidth="217.0" text="type rent cost (required)" GridPane.rowIndex="8" />
+                  <TextField id="brandTextfield" fx:id="brandTextfield" prefHeight="13.0" prefWidth="251.0" promptText="type brand" />
+                  <TextField id="parkingIdTextfield" fx:id="parkingIdTextfield" prefHeight="25.0" prefWidth="217.0" promptText="type parking id" GridPane.rowIndex="2" />
+                  <TextField id="modelTextfield" fx:id="modelTextfield" prefHeight="25.0" prefWidth="217.0" promptText="type model (required)" GridPane.rowIndex="4" />
+                  <TextField id="carNumberTextfield" fx:id="carNumberTextfield" prefHeight="25.0" prefWidth="217.0" promptText="type car number (required)" GridPane.rowIndex="6" />
+                  <TextField id="rentCostTextfield" fx:id="rentCostTextfield" prefHeight="25.0" prefWidth="217.0" promptText="type rent cost (required)" GridPane.rowIndex="8" />
                   <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="281.0" text="Enter" GridPane.rowIndex="10" onAction="#enterButtonPressed"/>
                   <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="251.0" text="Cancel" GridPane.rowIndex="11" />
                </children>

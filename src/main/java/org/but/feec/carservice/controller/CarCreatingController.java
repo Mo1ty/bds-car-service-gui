@@ -11,12 +11,14 @@ import org.controlsfx.validation.Validator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class CarCreationController {
-    public CarCreationController() {
+import static java.lang.Integer.valueOf;
+
+public class CarCreatingController {
+    public CarCreatingController() {
 
     }
 
-    private final Logger logger = LoggerFactory.getLogger(CarCreationController.class);
+    private final Logger logger = LoggerFactory.getLogger(CarCreatingController.class);
 
     @FXML
     private TextField brandTextfield;
@@ -43,36 +45,15 @@ public class CarCreationController {
 
     @FXML
     private void initialize() {
-        brandTextfield.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ENTER) {
-                enterButtonPressed();
-            }
-            });
-        parkingIdTextfield.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ENTER) {
-                enterButtonPressed();
-            }
-        });
-        modelTextfield.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ENTER) {
-                enterButtonPressed();
-            }
-        });
-        carNumberTextfield.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ENTER) {
-                enterButtonPressed();
-            }
-        });
-        rentCostTextfield.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ENTER) {
-                enterButtonPressed();
-            }
-        });
+
+        logger.info("Attempt to initialize CarCreatingClassController...");
+
+
 
 //      initializeServices();
-        initializeValidations();
+//        initializeValidations();
 
-        logger.info("LoginController initialized");
+        logger.info("CarCreatingClassController initialized");
     }
 
     private void initializeValidations() {
@@ -85,16 +66,17 @@ public class CarCreationController {
 
     public void enterButtonPressed() {
         String brand = brandTextfield.getText();
-        String parkingId = parkingIdTextfield.getText();
+        Integer parkingId = valueOf(parkingIdTextfield.getText());
         String model = modelTextfield.getText();
         String carNumber = carNumberTextfield.getText();
-        String rentCost = rentCostTextfield.getText();
+        Integer rentCost = valueOf(rentCostTextfield.getText());
 
         try {
             boolean creationSucceded = CarEditService.startCreation(brand, parkingId, model, carNumber, rentCost);
+            logger.info("Transaction happened!");
             if (creationSucceded) {
                 SuccessAndFailAlerts.successAlarm("Creation"); // put success alert & close both scenes
-
+                logger.info("Success?");
             } else {
                 SuccessAndFailAlerts.failAlarm("Creation"); // put fail alert & close both scenes
             }
