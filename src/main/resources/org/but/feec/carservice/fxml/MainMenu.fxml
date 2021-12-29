@@ -65,13 +65,12 @@
             <Hyperlink layoutX="220.0" layoutY="338.0" text="Important information about project" />
             <AnchorPane layoutX="20.0" layoutY="41.0" prefHeight="149.0" prefWidth="200.0">
                <children>
-                  <Button layoutX="149.0" layoutY="30.0" mnemonicParsing="false" text="Create" onAction="#carCreateButtonPressed" />
-                  <Button layoutX="2.0" layoutY="30.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="Read" />
+                  <Button layoutX="149.0" layoutY="30.0" mnemonicParsing="false" onAction="#carCreateButtonPressed" text="Create" />
+                  <Button layoutX="2.0" layoutY="30.0" mnemonicParsing="false" onAction="#carReadButtonPressed" prefHeight="25.0" prefWidth="51.0" text="Read" />
                   <Text layoutX="63.0" layoutY="6.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Car Table" textAlignment="CENTER" textOrigin="TOP" />
-                  <Button layoutY="88.0" mnemonicParsing="false" text="Update" />
-                  <Button layoutX="149.0" layoutY="88.0" mnemonicParsing="false" text="Delete" />
-                  <Button layoutX="58.0" layoutY="55.0" mnemonicParsing="false" text="Detailed info" />
-                  <Button layoutX="59.0" layoutY="113.0" mnemonicParsing="false" text="Find by filter" />
+                  <Button layoutY="88.0" mnemonicParsing="false" onAction="#carUpdateButtonPressed" text="Update" />
+                  <Button layoutX="149.0" layoutY="88.0" mnemonicParsing="false" text="Delete" onAction="#carDeleteButtonPressed" />
+                  <Button layoutX="58.0" layoutY="55.0" mnemonicParsing="false" text="Find by filter" />
                </children>
             </AnchorPane>
             <AnchorPane layoutX="421.0" layoutY="41.0" prefHeight="174.0" prefWidth="200.0">
@@ -83,10 +82,10 @@
                   <Button layoutX="149.0" layoutY="88.0" mnemonicParsing="false" text="Delete" />
                   <Button layoutX="58.0" layoutY="55.0" mnemonicParsing="false" text="Detailed info" />
                   <Button layoutX="59.0" layoutY="113.0" mnemonicParsing="false" text="Find by filter" />
-                  <Button layoutX="47.0" layoutY="148.0" mnemonicParsing="false" text="Set Expired Roles" />
                </children>
             </AnchorPane>
             <Button layoutX="262.0" layoutY="254.0" mnemonicParsing="false" text="Test SQL Injections" />
+            <Button layoutX="63.0" layoutY="158.0" mnemonicParsing="false" text="Alternative update" />
       </children>
     </AnchorPane>
   </children>

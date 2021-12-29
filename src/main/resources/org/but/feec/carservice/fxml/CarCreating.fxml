@@ -44,7 +44,7 @@
 <?import javafx.scene.text.Text?>
 
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="403.0" prefWidth="251.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.but.feec.carservice.controller.CarCreatingController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="353.0" prefWidth="251.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.but.feec.carservice.controller.carControllers.CarCreatingController">
    <children>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Type required data" wrappingWidth="251.13671875">
          <font>
@@ -52,7 +52,7 @@
          </font>
       </Text>
       <ToolBar />
-      <AnchorPane prefHeight="315.0" prefWidth="251.0">
+      <AnchorPane prefHeight="353.0" prefWidth="251.0">
          <children>
             <GridPane layoutY="32.0" prefHeight="323.0" prefWidth="251.0">
                <columnConstraints>
@@ -78,7 +78,7 @@
                   <TextField id="modelTextfield" fx:id="modelTextfield" prefHeight="25.0" prefWidth="217.0" promptText="type model (required)" GridPane.rowIndex="4" />
                   <TextField id="carNumberTextfield" fx:id="carNumberTextfield" prefHeight="25.0" prefWidth="217.0" promptText="type car number (required)" GridPane.rowIndex="6" />
                   <TextField id="rentCostTextfield" fx:id="rentCostTextfield" prefHeight="25.0" prefWidth="217.0" promptText="type rent cost (required)" GridPane.rowIndex="8" />
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="281.0" text="Enter" GridPane.rowIndex="10" onAction="#enterButtonPressed"/>
+                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="281.0" text="Enter" GridPane.rowIndex="10" onAction="#carCreation"/>
                   <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="251.0" text="Cancel" GridPane.rowIndex="11" />
                </children>
             </GridPane>

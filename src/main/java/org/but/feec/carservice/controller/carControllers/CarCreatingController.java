@@ -1,10 +1,10 @@
-package org.but.feec.carservice.controller;
+package org.but.feec.carservice.controller.carControllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
 import org.but.feec.carservice.api.SuccessAndFailAlerts;
+import org.but.feec.carservice.data.CarRepository;
 import org.but.feec.carservice.service.CarEditService;
 import org.controlsfx.validation.ValidationSupport;
 import org.controlsfx.validation.Validator;
@@ -46,14 +46,14 @@ public class CarCreatingController {
     @FXML
     private void initialize() {
 
-        logger.info("Attempt to initialize CarCreatingClassController...");
+        logger.info("Attempt to initialize CarCreatingController...");
 
 
 
 //      initializeServices();
 //        initializeValidations();
 
-        logger.info("CarCreatingClassController initialized");
+        logger.info("CarCreatingController initialized");
     }
 
     private void initializeValidations() {
@@ -64,7 +64,7 @@ public class CarCreatingController {
         enterButton.disableProperty().bind(validation.invalidProperty());
     }
 
-    public void enterButtonPressed() {
+    public void carCreation() {
         String brand = brandTextfield.getText();
         Integer parkingId = valueOf(parkingIdTextfield.getText());
         String model = modelTextfield.getText();
@@ -72,7 +72,7 @@ public class CarCreatingController {
         Integer rentCost = valueOf(rentCostTextfield.getText());
 
         try {
-            boolean creationSucceded = CarEditService.startCreation(brand, parkingId, model, carNumber, rentCost);
+            boolean creationSucceded = CarRepository.startCreation(brand, parkingId, model, carNumber, rentCost);
             logger.info("Transaction happened!");
             if (creationSucceded) {
                 SuccessAndFailAlerts.successAlarm("Creation"); // put success alert & close both scenes
@@ -82,7 +82,7 @@ public class CarCreatingController {
             }
         } catch (Exception e) {
             SuccessAndFailAlerts.failAlarm("Creation with exception");
-//          ResourceNotFoundException | DataAccessException
+            logger.error(String.valueOf(e));
         }
     }
 }

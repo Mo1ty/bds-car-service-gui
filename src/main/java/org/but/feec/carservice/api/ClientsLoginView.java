@@ -1,9 +1,6 @@
 package org.but.feec.carservice.api;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-public class FullLoginData {
+public class ClientsLoginView {
     private String email;
     private String passwordHash;
 
@@ -29,12 +26,5 @@ public class FullLoginData {
                 "email='" + email + '\'' +
                 ", password='" + passwordHash + '\'' +
                 '}';
-    }
-
-    public static FullLoginData turnIntoLoginData(ResultSet resultSet) throws SQLException {
-        FullLoginData person = new FullLoginData();
-        person.setEmail(resultSet.getString("email"));
-        person.setPasswordHash(resultSet.getString("password_hash"));
-        return person;
     }
 }

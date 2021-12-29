@@ -85,7 +85,7 @@ public class MainMenuController {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(App.class.getResource("fxml/CarCreating.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 251, 315);
+            Scene scene = new Scene(fxmlLoader.load(), 251, 353);
             Stage stage = new Stage();
             stage.setTitle("Set Parameters");
             stage.setScene(scene);
@@ -96,7 +96,53 @@ public class MainMenuController {
         }
     }
 
+    public void carUpdateButtonPressed()
+    {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(App.class.getResource("fxml/CarUpdating.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 258, 451);
+            Stage stage = new Stage();
+            stage.setTitle("Set Parameters");
+            stage.setScene(scene);
 
+            stage.show();
+        } catch (IOException ex) {
+            // fix it later
+        }
+    }
+
+    public void carDeleteButtonPressed()
+    {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(App.class.getResource("fxml/CarDeleting.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 190, 240);
+            Stage stage = new Stage();
+            stage.setTitle("Set Parameters");
+            stage.setScene(scene);
+
+            stage.show();
+        } catch (IOException ex) {
+            // fix it later
+        }
+    }
+
+    public void carReadButtonPressed()
+    {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(App.class.getResource("fxml/CarReading.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 190, 240);
+            Stage stage = new Stage();
+            stage.setTitle("Set Parameters");
+            stage.setScene(scene);
+
+            stage.show();
+        } catch (IOException ex) {
+            // fix it later
+        }
+    }
 
 
 

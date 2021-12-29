@@ -1,7 +1,7 @@
 package org.but.feec.carservice.controller;
 
 import org.but.feec.carservice.App;
-import org.but.feec.carservice.data.PersonRepository;
+import org.but.feec.carservice.data.CarRepository;
 import org.but.feec.carservice.service.AuthService;
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -13,7 +13,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -42,7 +41,7 @@ public class LoginController {
     @FXML
     private PasswordField passwordTextField;
 
-    private PersonRepository personRepository;
+    private CarRepository carRepository;
     private AuthService authService;
 
     private ValidationSupport validation;
@@ -80,8 +79,8 @@ public class LoginController {
     }
 
     private void initializeServices() {
-        personRepository = new PersonRepository();
-        authService = new AuthService(personRepository);
+        carRepository = new CarRepository();
+        authService = new AuthService(carRepository);
     }
 
     public void signInActionHandler(ActionEvent event) {

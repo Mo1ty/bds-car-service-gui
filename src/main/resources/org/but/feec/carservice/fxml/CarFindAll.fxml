@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.but.feec.carservice.controller.carControllers.CarFindAllController">
+   <children>
+      <TableView fx:id="systemCarsTableView" prefHeight="407.0" prefWidth="600.0">
+        <columns>
+          <TableColumn fx:id="carID" prefWidth="100.0" text="ID" />
+          <TableColumn fx:id="carBrand" prefWidth="100.0" text="Brand" />
+            <TableColumn fx:id="parkingID" prefWidth="100.0" text="Parking ID" />
+            <TableColumn fx:id="carModel" prefWidth="100.0" text="Model" />
+            <TableColumn fx:id="carNumber" prefWidth="100.0" text="Car Number" />
+            <TableColumn fx:id="rentCost" prefWidth="100.0" text="Rent Cost" />
+        </columns>
+      </TableView>
+   </children>
+</VBox>
