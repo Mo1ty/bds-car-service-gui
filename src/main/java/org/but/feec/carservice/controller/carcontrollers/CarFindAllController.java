@@ -1,4 +1,4 @@
-package org.but.feec.carservice.controller.carControllers;
+package org.but.feec.carservice.controller.carcontrollers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,10 +12,7 @@ import org.but.feec.carservice.service.CarEditService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class CarFindAllController {
 
@@ -47,18 +44,8 @@ public class CarFindAllController {
 
     @FXML
     private void initialize() {
-
-        List<Object> x = new ArrayList<Object>();
-        x.add(carID);
-        x.add(carBrand);
-        x.add(parkingID);
-        x.add(carModel);
-        x.add(carNumber);
-        x.add(rentCost);
-
-        buildCarTable();
-
         logger.info("CarDetailedViewController initialized");
+        buildCarTable();
     }
 
 
@@ -67,6 +54,8 @@ public class CarFindAllController {
         carEditService = new CarEditService(carRepository);
 //        GlyphsDude.setIcon(exitMenuItem, FontAwesomeIcon.CLOSE, "1em");
 
+        String param = CarReadController.parameters;
+
         carID.setCellValueFactory(new PropertyValueFactory<CarStandardView, Integer>("carsID"));
         carBrand.setCellValueFactory(new PropertyValueFactory<CarStandardView, String>("brand"));
         parkingID.setCellValueFactory(new PropertyValueFactory<CarStandardView, Integer>("parkingID"));
@@ -74,8 +63,16 @@ public class CarFindAllController {
         carNumber.setCellValueFactory(new PropertyValueFactory<CarStandardView, String>("carsNumber"));
         rentCost.setCellValueFactory(new PropertyValueFactory<CarStandardView, Integer>("rentCost"));
 
-        List<CarStandardView> cars = carRepository.getCarsStandardViewList();
-        ObservableList<CarStandardView> observableCarsList = FXCollections.observableArrayList(cars);
+        ObservableList<CarStandardView> observableCarsList;
+
+        if (param == null){
+            List<CarStandardView> cars = carRepository.getCarsStandardViewList();
+            observableCarsList = FXCollections.observableArrayList(cars);
+        }
+        else{
+            CarStandardView car = CarRepository.findCar(param);
+            observableCarsList = FXCollections.observableArrayList(car);
+        }
         systemCarsTableView.setItems(observableCarsList);
 
         systemCarsTableView.getSortOrder().add(carID);

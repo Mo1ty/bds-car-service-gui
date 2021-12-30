@@ -1,4 +1,4 @@
-package org.but.feec.carservice.controller.carControllers;
+package org.but.feec.carservice.controller.carcontrollers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +12,6 @@ import org.but.feec.carservice.api.CarStandardView;
 import org.but.feec.carservice.api.SuccessAndFailAlerts;
 import org.but.feec.carservice.data.CarRepository;
 import org.but.feec.carservice.exceptions.ExceptionHandler;
-import org.but.feec.carservice.service.CarEditService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,6 +39,8 @@ public class CarReadController {
     @FXML
     private Button enterButton;
 
+    public static String parameters;
+
 
     private void initialize()
     {
@@ -50,17 +51,20 @@ public class CarReadController {
 
         try {
             if(findAll.isSelected()){
-                tableCreate("fxml/CarFindAll.fxml");
+                tableCreate();
             }
             else
             {
+                parameters = carNumberTextfield.getText();
                 String carNumber = carNumberTextfield.getText();
                 CarStandardView carInfo = CarRepository.findCar(carNumber);
                 if(carInfo == null)
                 {
                     SuccessAndFailAlerts.failAlarm("Car was not found. Searching");
                 }
-                tableCreate(carInfo.getCarsNumber());
+                else{
+                    tableCreate();
+                }
             }
         } catch (Exception e) {
             SuccessAndFailAlerts.failAlarm("Creating a car met an exception and");
@@ -68,14 +72,15 @@ public class CarReadController {
         }
     }
 
-    public void tableCreate(String address){
+    public void tableCreate(){
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(App.class.getResource(address));
+            fxmlLoader.setLocation(App.class.getResource("fxml/CarFindAll.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 189, 241);
             Stage stage = new Stage();
             stage.setTitle("Set Parameters");
             stage.setScene(scene);
+
             stage.show();
 
         } catch (IOException ex) {

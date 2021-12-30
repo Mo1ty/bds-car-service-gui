@@ -1,4 +1,4 @@
-package org.but.feec.carservice.controller.carControllers;
+package org.but.feec.carservice.controller.carcontrollers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

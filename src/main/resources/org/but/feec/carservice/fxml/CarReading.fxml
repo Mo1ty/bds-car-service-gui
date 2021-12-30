@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="241.0" prefWidth="189.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.but.feec.carservice.controller.carControllers.CarReadController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="241.0" prefWidth="189.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.but.feec.carservice.controller.carcontrollers.CarReadController">
    <children>
       <AnchorPane prefHeight="241.0" prefWidth="189.0">
          <children>
@@ -20,7 +20,7 @@
                </font>
             </Text>
             <CheckBox fx:id="detailedView" id="detailedView" layoutX="76.0" layoutY="142.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="102.0" text="Detailed view" />
-            <TextField layoutX="20.0" layoutY="99.0" promptText="Input car number" />
+            <TextField fx:id="carNumberTextfield" layoutX="20.0" layoutY="99.0" promptText="Input car number" />
             <Button layoutX="12.0" layoutY="202.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="166.0" text="Enter" onAction="#carRead"/>
             <CheckBox fx:id="findAll" id="findAll" layoutX="76.0" layoutY="167.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="102.0" text="Find All" />
          </children>

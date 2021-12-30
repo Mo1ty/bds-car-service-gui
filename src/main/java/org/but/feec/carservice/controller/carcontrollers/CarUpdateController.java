@@ -1,8 +1,9 @@
-package org.but.feec.carservice.controller.carControllers;
+package org.but.feec.carservice.controller.carcontrollers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import org.but.feec.carservice.api.CarStandardView;
 import org.but.feec.carservice.api.SuccessAndFailAlerts;
 import org.but.feec.carservice.data.CarRepository;
 import org.but.feec.carservice.service.CarEditService;
@@ -13,12 +14,12 @@ import org.slf4j.LoggerFactory;
 
 import static java.lang.Integer.valueOf;
 
-public class CarCreatingController {
-    public CarCreatingController() {
+public class CarUpdateController {
+    public CarUpdateController() {
 
     }
 
-    private final Logger logger = LoggerFactory.getLogger(CarCreatingController.class);
+    private final Logger logger = LoggerFactory.getLogger(CarUpdateController.class);
 
     @FXML
     private TextField brandTextfield;
@@ -43,28 +44,33 @@ public class CarCreatingController {
 
     private ValidationSupport validation;
 
+    private CarEditService carEditService;
+    private CarRepository carRepository;
+
     @FXML
     private void initialize() {
 
-        logger.info("Attempt to initialize CarCreatingController...");
-
-
+        logger.info("Initializing CarUpdateController...");
 
 //      initializeServices();
 //        initializeValidations();
 
-        logger.info("CarCreatingController initialized");
+        logger.info("CarUpdateController initialized");
     }
 
     private void initializeValidations() {
         validation = new ValidationSupport();
-        validation.registerValidator(modelTextfield, Validator.createEmptyValidator("The model must not be empty."));
-        validation.registerValidator(carNumberTextfield, Validator.createEmptyValidator("The car number must not be empty."));
+        validation.registerValidator(brandTextfield, Validator.createEmptyValidator("Brand must not be empty."));
+        validation.registerValidator(parkingIdTextfield, Validator.createEmptyValidator("Parking id must not be empty."));
+        validation.registerValidator(modelTextfield, Validator.createEmptyValidator("Model must not be empty."));
+        validation.registerValidator(carNumberTextfield, Validator.createEmptyValidator("Car number must not be empty."));
         validation.registerValidator(rentCostTextfield, Validator.createEmptyValidator("Rent cost must be assigned."));
         enterButton.disableProperty().bind(validation.invalidProperty());
     }
 
-    public void carCreation() {
+    public void carUpdating() {
+
+
         String brand = brandTextfield.getText();
         Integer parkingId = valueOf(parkingIdTextfield.getText());
         String model = modelTextfield.getText();
@@ -72,18 +78,27 @@ public class CarCreatingController {
         Integer rentCost = valueOf(rentCostTextfield.getText());
 
         try {
-            boolean creationSucceded = CarRepository.startCreation(brand, parkingId, model, carNumber, rentCost);
+            CarStandardView carInfo = CarRepository.findCar(carNumber);
+            if(carInfo == null){
+                SuccessAndFailAlerts.failAlarm("Updating a non-existing car");
+                return;
+            }
+            else {
+                boolean updateSucceeded = false;
+            }
+            boolean updateSucceeded = CarRepository.carUpdating(brand, parkingId, model, carNumber, rentCost);
             logger.info("Transaction happened!");
-            if (creationSucceded) {
+            if (updateSucceeded) {
                 SuccessAndFailAlerts.successAlarm("Creation"); // put success alert & close both scenes
                 logger.info("Success?");
             } else {
                 SuccessAndFailAlerts.failAlarm("Creation"); // put fail alert & close both scenes
             }
         } catch (Exception e) {
-            SuccessAndFailAlerts.failAlarm("Creation with exception");
-            logger.error(String.valueOf(e));
+            SuccessAndFailAlerts.failAlarm("Creating a car met an exception and");
+//          ResourceNotFoundException | DataAccessException
         }
     }
 }
+
 

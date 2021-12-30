@@ -92,7 +92,7 @@ public class LoginController {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(App.class.getResource("fxml/MainMenu.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 640, 400);
+            Scene scene = new Scene(fxmlLoader.load(), 240, 320);
             Stage stage = new Stage();
             stage.setTitle("Car Service");
             stage.setScene(scene);
@@ -109,7 +109,7 @@ public class LoginController {
         }
     }
 
-    private void showInvalidPaswordDialog() {
+    private void showInvalidPasswordDialog() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         logger.info("Auth failed!");
         alert.setTitle("Authentication Failed");
@@ -158,10 +158,10 @@ public class LoginController {
             if (authenticated) {
                 showPersonsView();
             } else {
-                showInvalidPaswordDialog();
+                showInvalidPasswordDialog();
             }
         } catch (Exception e) {
-            showInvalidPaswordDialog();
+            showInvalidPasswordDialog();
 //          ResourceNotFoundException | DataAccessException
         }
     }
