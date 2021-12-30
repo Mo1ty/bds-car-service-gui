@@ -2,6 +2,7 @@ package org.but.feec.carservice.controller.carcontrollers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import org.but.feec.carservice.api.CarStandardView;
 import org.but.feec.carservice.api.SuccessAndFailAlerts;
@@ -79,14 +80,14 @@ public class CarUpdateController {
 
         try {
             CarStandardView carInfo = CarRepository.findCar(carNumber);
+            boolean updateSucceeded = false;
             if(carInfo == null){
                 SuccessAndFailAlerts.failAlarm("Updating a non-existing car");
                 return;
             }
-            else {
-                boolean updateSucceeded = false;
-            }
-            boolean updateSucceeded = CarRepository.carUpdating(brand, parkingId, model, carNumber, rentCost);
+
+            updateSucceeded = CarRepository.carUpdating(brand, parkingId, model, carNumber, rentCost);
+
             logger.info("Transaction happened!");
             if (updateSucceeded) {
                 SuccessAndFailAlerts.successAlarm("Creation"); // put success alert & close both scenes

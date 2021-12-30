@@ -2,6 +2,7 @@ package org.but.feec.carservice.controller;
 
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -15,7 +16,9 @@ import org.controlsfx.validation.Validator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.awt.*;
 import java.io.IOException;
+import java.net.URI;
 
 public class MainMenuController {
 
@@ -112,6 +115,22 @@ public class MainMenuController {
         }
     }
 
+    public void carAlterUpdateButtonPressed()
+    {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(App.class.getResource("fxml/CarNumberUpdating.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 260, 330);
+            Stage stage = new Stage();
+            stage.setTitle("Set Parameters");
+            stage.setScene(scene);
+
+            stage.show();
+        } catch (IOException ex) {
+            // fix it later
+        }
+    }
+
     public void carDeleteButtonPressed()
     {
         try {
@@ -161,4 +180,28 @@ public class MainMenuController {
 
     }
 
+    public void openLink() throws IOException {
+        String s = "https://youtu.be/dQw4w9WgXcQ";
+        Desktop desktop = Desktop.getDesktop();
+        desktop.browse(URI.create(s));
+    }
+
+    public void openHelpLink() throws IOException {
+        String s = "https://github.com/Mo1ty/bds-car-service-gui";
+        Desktop desktop = Desktop.getDesktop();
+        desktop.browse(URI.create(s));
+    }
+
+
+    public void Backup() {
+        try {
+            String currentPath = new java.io.File(".").getCanonicalPath();
+            System.out.println("Current dir:" + currentPath);
+            java.lang.Runtime rt = java.lang.Runtime.getRuntime();
+            final String cmd = "pg_dump  --format=p --exter \"postgres\" db_name > \"" + currentPath + "\\" + "car_service.sql" + "\"";
+            Process p = rt.exec(cmd);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
 }

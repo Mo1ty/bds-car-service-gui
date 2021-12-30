@@ -91,7 +91,7 @@ public class LoginController {
     private void showPersonsView() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(App.class.getResource("fxml/MainMenu.fxml"));
+            fxmlLoader.setLocation(App.class.getResource("MainMenu.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 240, 320);
             Stage stage = new Stage();
             stage.setTitle("Car Service");

@@ -10,6 +10,7 @@ import org.but.feec.carservice.service.CarEditService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -96,6 +97,46 @@ public class CarRepository {
             logger.info("Car updated successfully!");
         }
         catch (SQLException e) {
+            SuccessAndFailAlerts.failAlarm("Updating a car met an SQL exception and ");
+            logger.error("Exception: " + e);
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean carAlternativeUpdating(String oldCarNumber, String brand, Integer parkingId, String model, String carNumber, Integer rentCost) throws SQLException {
+        try {
+            Connection connection = DataSourceConfig.getConnection();
+            connection.setAutoCommit(false);
+            PreparedStatement transactionStatement =  connection.prepareStatement("SET TRANSACTION ISOLATION LEVEL READ COMMITTED;");
+            transactionStatement.executeUpdate();
+            PreparedStatement deleteStatement = connection.prepareStatement("DELETE FROM car_service.cars WHERE cars_number = ?;");
+            deleteStatement.setString(1, oldCarNumber);
+            PreparedStatement createStatement = connection.prepareStatement("INSERT INTO car_service.cars VALUES (DEFAULT, ?, ?, ?, ?, ?);");
+            createStatement.setString(1, brand);
+            createStatement.setInt(2, parkingId);
+            createStatement.setString(3, model);
+            createStatement.setString(4, carNumber);
+            createStatement.setInt(5, rentCost);
+            try
+            {
+                carDeleting(carNumber);
+                startCreation(brand, parkingId, model, carNumber, rentCost);
+                PreparedStatement commitStatement = connection.prepareStatement("COMMIT;");
+                commitStatement.executeUpdate();
+                connection.setAutoCommit(true);
+            }
+            catch (Exception e){
+                logger.error(e.getMessage());
+                PreparedStatement rollbackStatement = connection.prepareStatement("ROLLBACK;");
+                rollbackStatement.executeUpdate();
+                connection.setAutoCommit(true);
+            }
+            deleteStatement.executeUpdate();
+            logger.info("Car updated successfully!");
+        }
+        catch (SQLException e) {
+            logger.error(e.getMessage());
             SuccessAndFailAlerts.failAlarm("Updating a car met an SQL exception and ");
             logger.error("Exception: " + e);
             return false;

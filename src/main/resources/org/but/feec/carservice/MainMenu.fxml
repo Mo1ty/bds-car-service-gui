@@ -43,13 +43,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="317.0" prefWidth="243.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.but.feec.carservice.controller.MainMenuController">
+<VBox prefHeight="320.0" prefWidth="240.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.but.feec.carservice.controller.MainMenuController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
         <Menu mnemonicParsing="false" text="Menu">
           <items>
-                  <MenuItem mnemonicParsing="false" text="Help" />
+                  <MenuItem mnemonicParsing="false" onAction="#openHelpLink" text="Help" />
             <MenuItem mnemonicParsing="false" text="Quit" />
           </items>
         </Menu>
@@ -62,19 +62,18 @@
             <Font size="18.0" />
           </font>
         </Label>
-            <Hyperlink layoutX="20.0" layoutY="260.0" text="Important information about project" />
+            <Hyperlink layoutX="20.0" layoutY="260.0" onMouseClicked="#openLink" text="Important information about project" />
             <AnchorPane layoutX="20.0" layoutY="41.0" prefHeight="149.0" prefWidth="200.0">
                <children>
-                  <Button layoutX="149.0" layoutY="30.0" mnemonicParsing="false" onAction="#carCreateButtonPressed" text="Create" />
-                  <Button layoutX="2.0" layoutY="30.0" mnemonicParsing="false" onAction="#carReadButtonPressed" prefHeight="25.0" prefWidth="51.0" text="Read" />
+                  <Button layoutX="149.0" layoutY="23.0" mnemonicParsing="false" onAction="#carCreateButtonPressed" text="Create" />
+                  <Button layoutX="2.0" layoutY="23.0" mnemonicParsing="false" onAction="#carReadButtonPressed" prefHeight="25.0" prefWidth="51.0" text="Read" />
                   <Text layoutX="63.0" layoutY="6.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Car Table" textAlignment="CENTER" textOrigin="TOP" />
                   <Button layoutY="88.0" mnemonicParsing="false" onAction="#carUpdateButtonPressed" text="Update" />
                   <Button layoutX="149.0" layoutY="88.0" mnemonicParsing="false" onAction="#carDeleteButtonPressed" text="Delete" />
-                  <Button layoutX="58.0" layoutY="55.0" mnemonicParsing="false" text="Find by filter" />
+                  <Button onAction="#sqlInject" layoutX="42.0" layoutY="55.0" mnemonicParsing="false" text="Test SQL Injections" />
+                  <Button layoutX="43.0" layoutY="123.0" mnemonicParsing="false" onAction="#carAlterUpdateButtonPressed" text="Alternative update" />
                </children>
             </AnchorPane>
-            <Button layoutX="62.0" layoutY="198.0" mnemonicParsing="false" text="Test SQL Injections" onAction="#sqlInject" />
-            <Button layoutX="63.0" layoutY="158.0" mnemonicParsing="false" text="Alternative update" />
       </children>
     </AnchorPane>
   </children>
