@@ -51,7 +51,8 @@ public class CarReadController {
 
         try {
             if(findAll.isSelected()){
-                tableCreate();
+                parameters = null;
+                tableCreate("fxml/CarFindAll.fxml", 6);
             }
             else
             {
@@ -63,7 +64,13 @@ public class CarReadController {
                     SuccessAndFailAlerts.failAlarm("Car was not found. Searching");
                 }
                 else{
-                    tableCreate();
+                    if(detailedView.isSelected())
+                    {
+                        tableCreate("fxml/CarDetailedRead.fxml", 11);
+                    }
+                    else{
+                        tableCreate("fxml/CarFindAll.fxml", 6);
+                    }
                 }
             }
         } catch (Exception e) {
@@ -72,11 +79,11 @@ public class CarReadController {
         }
     }
 
-    public void tableCreate(){
+    public void tableCreate(String address, Integer columnCount){
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(App.class.getResource("fxml/CarFindAll.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 189, 241);
+            fxmlLoader.setLocation(App.class.getResource(address));
+            Scene scene = new Scene(fxmlLoader.load(), 100 * columnCount, 400);
             Stage stage = new Stage();
             stage.setTitle("Set Parameters");
             stage.setScene(scene);

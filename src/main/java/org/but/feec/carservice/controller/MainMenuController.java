@@ -144,6 +144,21 @@ public class MainMenuController {
         }
     }
 
+    public void sqlInject()
+    {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(App.class.getResource("SQLInjections.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 190, 240);
+            Stage stage = new Stage();
+            stage.setTitle("Set Parameters");
+            stage.setScene(scene);
 
+            stage.show();
+        } catch (IOException ex) {
+            // fix it later
+        }
+
+    }
 
 }

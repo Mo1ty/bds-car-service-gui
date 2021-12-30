@@ -1,5 +1,6 @@
 package org.but.feec.carservice.data;
 
+import org.but.feec.carservice.api.CarDetailedView;
 import org.but.feec.carservice.api.CarStandardView;
 import org.but.feec.carservice.api.ClientsLoginView;
 import org.but.feec.carservice.api.SuccessAndFailAlerts;
@@ -44,7 +45,7 @@ public class CarRepository {
         try (Connection connection = DataSourceConfig.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
                      "SELECT * FROM car_service.cars;");
-             ResultSet resultSet = preparedStatement.executeQuery();) {
+             ResultSet resultSet = preparedStatement.executeQuery()) {
             List<CarStandardView> carsList = new ArrayList<>();
             while (resultSet.next()) {
                 carsList.add(toCarStandardView(resultSet));
@@ -120,24 +121,6 @@ public class CarRepository {
         return null;
     }
 
-    public static CarStandardView carReading(String carNumber) {
-
-        try (Connection connection = DataSourceConfig.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(
-                     "SELECT * FROM car_service.cars WHERE cars_number = ?;")
-        ) {
-            preparedStatement.setString(1, carNumber);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            logger.info("Car updated successfully!");
-            return toCarStandardView(resultSet);
-        }
-        catch (SQLException e) {
-            SuccessAndFailAlerts.failAlarm("Updating a car met an exception and ");
-            logger.error("Exception: " + e);
-            return null;
-        }
-    }
-
     public static boolean carDeleting(String carNumber)
     {
         try (Connection connection = DataSourceConfig.getConnection();
@@ -154,5 +137,44 @@ public class CarRepository {
             return false;
         }
         return true;
+    }
+
+    public static CarDetailedView detailedCarSearch(String carsNumber) {
+        try (Connection connection = DataSourceConfig.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(
+                     "SELECT cars_id, model, cars_number, rent_cost, p.parking_id, city, street, house, b.brand, support_mail, support_number " +
+                             "FROM car_service.cars c " +
+                             "JOIN car_service.parking p ON c.parking_id = p.parking_id " +
+                             "JOIN car_service.brands_support_numbers b on c.brand = b.brand " +
+                             "WHERE cars_number = ?;")
+        ) {
+            preparedStatement.setString(1, carsNumber);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return CarRepository.toCarDetailedView(resultSet);
+                }
+            }
+        } catch (SQLException e) {
+            throw new DataAccessException("Finding car by number failed.", e);
+        }
+        logger.info("Car was not found.");
+        return null;
+    }
+
+    public static CarDetailedView toCarDetailedView(ResultSet resultSet) throws SQLException {
+        CarDetailedView carDetailedView = new CarDetailedView();
+        carDetailedView.setCarsID(resultSet.getInt("cars_id"));
+        carDetailedView.setModel(resultSet.getString("model"));
+        carDetailedView.setCarsNumber(resultSet.getString("cars_number"));
+        carDetailedView.setRentCost(resultSet.getInt("rent_cost"));
+        carDetailedView.setParkingID(resultSet.getInt("parking_id"));
+        carDetailedView.setCity(resultSet.getString("city"));
+        carDetailedView.setStreet(resultSet.getString("street"));
+        carDetailedView.setHouse(resultSet.getString("house"));
+        carDetailedView.setBrand(resultSet.getString("brand"));
+        carDetailedView.setSupportMail(resultSet.getString("support_mail"));
+        carDetailedView.setSupportNumber(resultSet.getString("support_number"));
+
+        return carDetailedView;
     }
 }

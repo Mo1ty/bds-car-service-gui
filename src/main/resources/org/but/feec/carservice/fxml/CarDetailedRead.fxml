@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.but.feec.carservice.controller.carcontrollers.CarDetailedViewController">
+   <children>
+      <TableView fx:id="systemCarsTableView" prefHeight="400.0" prefWidth="1076.0">
+        <columns>
+          <TableColumn fx:id="carID" prefWidth="100.0" text="ID" />
+            <TableColumn fx:id="carModel" prefWidth="100.0" text="Model" />
+            <TableColumn fx:id="carNumber" prefWidth="100.0" text="Car Number" />
+            <TableColumn fx:id="rentCost" prefWidth="100.0" text="Rent Cost" />
+            <TableColumn fx:id="parkingID" prefWidth="100.0" text="Parking ID" />
+            <TableColumn fx:id="city" prefWidth="100.0" text="City" />
+            <TableColumn fx:id="street" prefWidth="100.0" text="Street" />
+            <TableColumn fx:id="house" prefWidth="100.0" text="House" />
+          <TableColumn fx:id="carBrand" prefWidth="100.0" text="Brand" />
+            <TableColumn fx:id="supportMail" prefWidth="100.0" text="Support Mail" />
+            <TableColumn fx:id="supportNumber" prefWidth="100.0" text="Support Number" />
+        </columns>
+      </TableView>
+   </children>
+</VBox>
