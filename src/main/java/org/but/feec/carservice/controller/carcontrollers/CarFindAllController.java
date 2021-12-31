@@ -70,7 +70,7 @@ public class CarFindAllController {
             observableCarsList = FXCollections.observableArrayList(cars);
         }
         else{
-            CarStandardView car = CarRepository.findCar(param);
+            CarStandardView car = carRepository.findCar(param);
             observableCarsList = FXCollections.observableArrayList(car);
         }
         systemCarsTableView.setItems(observableCarsList);

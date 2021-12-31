@@ -35,7 +35,7 @@
                             </font>
                         </Text>
                         <Separator prefHeight="11.0" prefWidth="245.0" GridPane.rowIndex="1" />
-                        <Button mnemonicParsing="false" onAction="#carNumberUpdating" prefHeight="25.0" prefWidth="234.0" text="Enter" GridPane.rowIndex="4" />
+                        <Button id="enterButton" fx:id="enterButton" mnemonicParsing="false" onAction="#carNumberUpdating" prefHeight="25.0" prefWidth="234.0" text="Enter" GridPane.rowIndex="4" />
                     </children>
                 </GridPane>
                 <Text layoutX="19.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Set car number " textAlignment="CENTER" wrappingWidth="220.13671875">

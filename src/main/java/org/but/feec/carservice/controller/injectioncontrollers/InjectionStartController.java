@@ -44,7 +44,7 @@ public class InjectionStartController {
 
         } catch (Exception e) {
             SuccessAndFailAlerts.failAlarm("Creating a car met an exception and");
-//          ResourceNotFoundException | DataAccessException
+//          NoResourceException | DataAccessException
         }
     }
 

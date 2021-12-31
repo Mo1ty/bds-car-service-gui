@@ -1,8 +1,10 @@
 package org.but.feec.carservice.api;
 
+import java.util.Arrays;
+
 public class ClientsLoginView {
     private String email;
-    private String passwordHash;
+    private char[] passwordHash;
 
     public String getEmail() {
         return email;
@@ -12,11 +14,11 @@ public class ClientsLoginView {
         this.email = email;
     }
 
-    public String getPasswordHash() {
+    public char[] getPasswordHash() {
         return passwordHash;
     }
 
-    public void setPasswordHash(String passwordHash) {
+    public void setPasswordHash(char[] passwordHash) {
         this.passwordHash = passwordHash;
     }
 
@@ -24,7 +26,7 @@ public class ClientsLoginView {
     public String toString() {
         return "FullLoginData{" +
                 "email='" + email + '\'' +
-                ", password='" + passwordHash + '\'' +
+                ", password='" + Arrays.toString(passwordHash) + '\'' +
                 '}';
     }
 }

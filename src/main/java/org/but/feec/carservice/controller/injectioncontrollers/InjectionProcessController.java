@@ -21,8 +21,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.but.feec.carservice.data.CarRepository.toCarStandardView;
-
 public class InjectionProcessController {
 
     private static final Logger logger = LoggerFactory.getLogger(InjectionProcessController.class);
@@ -83,17 +81,18 @@ public class InjectionProcessController {
 //        loadIcons();
     }
 
-    public static CarStandardView vulnerableFindCar(String carsNumber) {
+    public CarStandardView vulnerableFindCar(String carsNumber) {
         String text = "SELECT * FROM car_service.cars WHERE cars_number = " + "'" + carsNumber + "'";
         try (Connection connection = DataSourceConfig.getConnection();
              Statement Statement = connection.createStatement();
         ){
             try (ResultSet resultSet = Statement.executeQuery(text)) {
                 if (resultSet.next()) {
-                    return toCarStandardView(resultSet);
+                    return carRepository.toCarStandardView(resultSet);
                 }
             }
         } catch (SQLException e) {
+            logger.error(e.getMessage());
             throw new DataAccessException("Finding car by number failed.", e);
         }
         logger.info("Car was not found.");

@@ -9,7 +9,7 @@ import org.but.feec.carservice.data.CarRepository;
 import java.sql.*;
 
 import org.but.feec.carservice.exceptions.DataAccessException;
-import org.but.feec.carservice.exceptions.ResourceNotFoundException;
+import org.but.feec.carservice.exceptions.NoResourceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,7 +33,7 @@ public class AuthService {
         ClientsLoginView userData = findPersonToAuthenticate(username);
 
         if (userData.getEmail() == null || userData.getPasswordHash() == null) {
-            throw new ResourceNotFoundException("Provided username is not found.");
+            throw new NoResourceException("Provided username is not found.");
         }
 
         BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), userData.getPasswordHash());
@@ -48,7 +48,7 @@ public class AuthService {
             preparedStatement.setString(1, email);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    return CarRepository.turnIntoLoginData(resultSet);
+                    return carRepository.turnIntoLoginData(resultSet);
                 }
             }
         } catch (SQLException e) {

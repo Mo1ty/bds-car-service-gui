@@ -5,6 +5,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import org.but.feec.carservice.api.SuccessAndFailAlerts;
 import org.but.feec.carservice.data.CarRepository;
+import org.but.feec.carservice.service.AuthService;
+import org.but.feec.carservice.service.CarEditService;
 import org.controlsfx.validation.ValidationSupport;
 import org.controlsfx.validation.Validator;
 import org.slf4j.Logger;
@@ -42,25 +44,40 @@ public class CarCreatingController {
 
     private ValidationSupport validation;
 
+    private CarRepository carRepository;
+    private CarEditService carEditService;
+
     @FXML
     private void initialize() {
 
         logger.info("Attempt to initialize CarCreatingController...");
 
 
-
-//      initializeServices();
-//        initializeValidations();
+        initializeServices();
+        initializeValidations();
 
         logger.info("CarCreatingController initialized");
     }
 
     private void initializeValidations() {
-        validation = new ValidationSupport();
-        validation.registerValidator(modelTextfield, Validator.createEmptyValidator("The model must not be empty."));
-        validation.registerValidator(carNumberTextfield, Validator.createEmptyValidator("The car number must not be empty."));
-        validation.registerValidator(rentCostTextfield, Validator.createEmptyValidator("Rent cost must be assigned."));
-        enterButton.disableProperty().bind(validation.invalidProperty());
+        try
+        {
+            validation = new ValidationSupport();
+            validation.registerValidator(brandTextfield, Validator.createEmptyValidator("Brand must not be empty."));
+            validation.registerValidator(parkingIdTextfield, Validator.createEmptyValidator("Parking ID number must not be empty."));
+            validation.registerValidator(modelTextfield, Validator.createEmptyValidator("The model must not be empty."));
+            validation.registerValidator(carNumberTextfield, Validator.createEmptyValidator("The car number must not be empty."));
+            validation.registerValidator(rentCostTextfield, Validator.createEmptyValidator("Rent cost must be assigned."));
+            enterButton.disableProperty().bind(validation.invalidProperty());
+        }
+        catch(Exception e){
+            logger.error(e.getMessage());
+        }
+    }
+
+    private void initializeServices() {
+        carRepository = new CarRepository();
+        carEditService = new CarEditService(carRepository);
     }
 
     public void carCreation() {
@@ -71,7 +88,7 @@ public class CarCreatingController {
         Integer rentCost = valueOf(rentCostTextfield.getText());
 
         try {
-            boolean creationSucceded = CarRepository.startCreation(brand, parkingId, model, carNumber, rentCost);
+            boolean creationSucceded = carRepository.startCreation(brand, parkingId, model, carNumber, rentCost);
             logger.info("Transaction happened!");
             if (creationSucceded) {
                 SuccessAndFailAlerts.successAlarm("Creation"); // put success alert & close both scenes

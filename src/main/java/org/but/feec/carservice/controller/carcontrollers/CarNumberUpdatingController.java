@@ -42,8 +42,28 @@ public class CarNumberUpdatingController {
 
         logger.info("Initializing CarNumberUpdatingController...");
 
+        initializeServices();
+        initializeValidations();
 
         logger.info("CarNumberUpdatingController initialized");
+    }
+
+    private void initializeServices() {
+        carRepository = new CarRepository();
+        carEditService = new CarEditService(carRepository);
+    }
+
+    private void initializeValidations() {
+        try
+        {
+            validation = new ValidationSupport();
+            validation.registerValidator(oldCarNumberTextfield, Validator.createEmptyValidator("Brand must not be empty."));
+            validation.registerValidator(newCarNumberTextfield, Validator.createEmptyValidator("Parking ID number must not be empty."));
+            enterButton.disableProperty().bind(validation.invalidProperty());
+        }
+        catch(Exception e){
+            logger.error(e.getMessage());
+        }
     }
 
     public void carNumberUpdating() {
@@ -52,10 +72,10 @@ public class CarNumberUpdatingController {
         String oldCarNumber = oldCarNumberTextfield.getText();
         String newCarNumber = newCarNumberTextfield.getText();
 
-        if(CarRepository.findCar(newCarNumber) == null)
+        if(carRepository.findCar(newCarNumber) == null)
         {
             try {
-                CarStandardView carInfo = CarRepository.findCar(oldCarNumber);
+                CarStandardView carInfo = carRepository.findCar(oldCarNumber);
 
                 boolean updateSucceeded = false;
 
@@ -64,7 +84,7 @@ public class CarNumberUpdatingController {
                     return;
                 }
 
-                updateSucceeded = CarRepository.carAlternativeUpdating(oldCarNumber, carInfo.getBrand(), carInfo.getParkingID(),
+                updateSucceeded = carRepository.carAlternativeUpdating(oldCarNumber, carInfo.getBrand(), carInfo.getParkingID(),
                         carInfo.getModel(), newCarNumber, carInfo.getRentCost());
 
                 logger.info("Transaction happened!");

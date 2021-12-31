@@ -6,6 +6,7 @@ import javafx.scene.control.TextField;
 import org.but.feec.carservice.api.CarStandardView;
 import org.but.feec.carservice.api.SuccessAndFailAlerts;
 import org.but.feec.carservice.data.CarRepository;
+import org.but.feec.carservice.exceptions.WrongDataInputException;
 import org.but.feec.carservice.service.CarEditService;
 import org.controlsfx.validation.ValidationSupport;
 import org.controlsfx.validation.Validator;
@@ -29,20 +30,31 @@ public class CarDeleteController {
     private CarEditService carEditService;
     private CarRepository carRepository;
 
+    @FXML
     private void initialize() {
 
         logger.info("Initializing CarDeleteController...");
 
-//      initializeServices();
+        initializeServices();
         initializeValidations();
 
         logger.info("CarDeleteController initialized");
     }
 
+    private void initializeServices() {
+        carRepository = new CarRepository();
+        carEditService = new CarEditService(carRepository);
+    }
+
     private void initializeValidations() {
-        validation = new ValidationSupport();
-        validation.registerValidator(carNumberTextfield, Validator.createEmptyValidator("Car number field must not be empty."));
-        enterButton.disableProperty().bind(validation.invalidProperty());
+        try{
+            validation = new ValidationSupport();
+            validation.registerValidator(carNumberTextfield, Validator.createEmptyValidator("Car number field must not be empty."));
+            enterButton.disableProperty().bind(validation.invalidProperty());
+        }
+        catch(Exception e){
+            logger.error(e.getMessage());
+        }
     }
 
     public void carDeleting() {
@@ -50,7 +62,7 @@ public class CarDeleteController {
         String carNumber = carNumberTextfield.getText();
 
         try {
-            CarStandardView carInfo = CarRepository.findCar(carNumber);
+            CarStandardView carInfo = carRepository.findCar(carNumber);
             if(carInfo == null){
                 SuccessAndFailAlerts.failAlarm("Deleting a non-existing car");
                 return;
@@ -58,7 +70,7 @@ public class CarDeleteController {
             else {
                 boolean deleteSucceeded = false;
             }
-            boolean deleteSucceeded = CarRepository.carDeleting(carNumber);
+            boolean deleteSucceeded = carRepository.carDeleting(carNumber);
             logger.info("Transaction happened!");
             if (deleteSucceeded) {
                 SuccessAndFailAlerts.successAlarm("Delete"); // put success alert & close both scenes
@@ -68,7 +80,8 @@ public class CarDeleteController {
             }
         } catch (Exception e) {
             SuccessAndFailAlerts.failAlarm("Deleting a car met an exception and");
-//          ResourceNotFoundException | DataAccessException
+            logger.error(e.getMessage());
+//          NoResourceException | DataAccessException
         }
     }
 }

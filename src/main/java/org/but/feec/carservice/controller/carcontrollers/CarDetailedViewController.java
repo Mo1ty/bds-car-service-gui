@@ -53,9 +53,14 @@ public class CarDetailedViewController {
     @FXML
     private void initialize() {
         logger.info("CarDetailedViewController initialized");
+        initializeServices();
         buildCarTable();
     }
 
+    private void initializeServices() {
+        carRepository = new CarRepository();
+        carEditService = new CarEditService(carRepository);
+    }
 
     public void buildCarTable(){
         carRepository = new CarRepository();
@@ -78,7 +83,7 @@ public class CarDetailedViewController {
 
         ObservableList<CarDetailedView> observableCarsList;
 
-        CarDetailedView car = CarRepository.detailedCarSearch(param);
+        CarDetailedView car = carRepository.detailedCarSearch(param);
         observableCarsList = FXCollections.observableArrayList(car);
 
 //        if (param == null){

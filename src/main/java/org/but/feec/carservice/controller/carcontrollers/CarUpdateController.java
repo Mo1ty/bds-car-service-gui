@@ -53,8 +53,8 @@ public class CarUpdateController {
 
         logger.info("Initializing CarUpdateController...");
 
-//      initializeServices();
-//        initializeValidations();
+        initializeServices();
+        initializeValidations();
 
         logger.info("CarUpdateController initialized");
     }
@@ -69,6 +69,11 @@ public class CarUpdateController {
         enterButton.disableProperty().bind(validation.invalidProperty());
     }
 
+    private void initializeServices() {
+        carRepository = new CarRepository();
+        carEditService = new CarEditService(carRepository);
+    }
+
     public void carUpdating() {
 
 
@@ -79,14 +84,14 @@ public class CarUpdateController {
         Integer rentCost = valueOf(rentCostTextfield.getText());
 
         try {
-            CarStandardView carInfo = CarRepository.findCar(carNumber);
+            CarStandardView carInfo = carRepository.findCar(carNumber);
             boolean updateSucceeded = false;
             if(carInfo == null){
                 SuccessAndFailAlerts.failAlarm("Updating a non-existing car");
                 return;
             }
 
-            updateSucceeded = CarRepository.carUpdating(brand, parkingId, model, carNumber, rentCost);
+            updateSucceeded = carRepository.carUpdating(brand, parkingId, model, carNumber, rentCost);
 
             logger.info("Transaction happened!");
             if (updateSucceeded) {
@@ -97,7 +102,7 @@ public class CarUpdateController {
             }
         } catch (Exception e) {
             SuccessAndFailAlerts.failAlarm("Creating a car met an exception and");
-//          ResourceNotFoundException | DataAccessException
+//          NoResourceException | DataAccessException
         }
     }
 }

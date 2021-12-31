@@ -88,7 +88,7 @@ public class MainMenuController {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(App.class.getResource("fxml/CarCreating.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 251, 353);
+            Scene scene = new Scene(fxmlLoader.load(), 270, 370);
             Stage stage = new Stage();
             stage.setTitle("Set Parameters");
             stage.setScene(scene);

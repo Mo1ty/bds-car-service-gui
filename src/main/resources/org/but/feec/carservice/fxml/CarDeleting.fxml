@@ -19,7 +19,7 @@
                </font>
             </Text>
             <TextField fx:id="carNumberTextfield" layoutX="20.0" layoutY="133.0" promptText="Input car number" />
-            <Button layoutX="12.0" layoutY="202.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="166.0" text="Enter" onAction="#carDeleting"/>
+            <Button id="enterButton" fx:id="enterButton" layoutX="12.0" layoutY="202.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="166.0" text="Enter" onAction="#carDeleting"/>
          </children>
       </AnchorPane>
    </children>

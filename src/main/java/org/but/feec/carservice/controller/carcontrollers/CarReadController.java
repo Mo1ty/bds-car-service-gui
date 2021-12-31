@@ -12,6 +12,7 @@ import org.but.feec.carservice.api.CarStandardView;
 import org.but.feec.carservice.api.SuccessAndFailAlerts;
 import org.but.feec.carservice.data.CarRepository;
 import org.but.feec.carservice.exceptions.ExceptionHandler;
+import org.but.feec.carservice.service.CarEditService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,10 +42,20 @@ public class CarReadController {
 
     public static String parameters;
 
+    private CarRepository carRepository;
+    private CarEditService carEditService;
 
+    @FXML
     private void initialize()
     {
+        initializeServices();
         logger.info("CarReadController initialized");
+
+    }
+
+    private void initializeServices() {
+        carRepository = new CarRepository();
+        carEditService = new CarEditService(carRepository);
     }
 
     public void carRead() {
@@ -58,7 +69,7 @@ public class CarReadController {
             {
                 parameters = carNumberTextfield.getText();
                 String carNumber = carNumberTextfield.getText();
-                CarStandardView carInfo = CarRepository.findCar(carNumber);
+                CarStandardView carInfo = carRepository.findCar(carNumber);
                 if(carInfo == null)
                 {
                     SuccessAndFailAlerts.failAlarm("Car was not found. Searching");
@@ -75,7 +86,7 @@ public class CarReadController {
             }
         } catch (Exception e) {
             SuccessAndFailAlerts.failAlarm("Creating a car met an exception and");
-//          ResourceNotFoundException | DataAccessException
+//          NoResourceException | DataAccessException
         }
     }
 

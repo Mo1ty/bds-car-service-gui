@@ -162,7 +162,7 @@ public class LoginController {
             }
         } catch (Exception e) {
             showInvalidPasswordDialog();
-//          ResourceNotFoundException | DataAccessException
+//          NoResourceException | DataAccessException
         }
     }
 }
